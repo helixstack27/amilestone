@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "email|609418d83824a2f35735aa06",
+      "email": "aniketgiram2404@gmail.com",
+      "email_verified": true,
+      "uid": "email|609418d83824a2f35735aa06"
+    },
+    {
+      "id": "google-oauth2|106914577431492169679",
+      "uid": "google-oauth2|106914577431492169679",
+      "sub": "google-oauth2|106914577431492169679",
+      "given_name": "Aniket",
+      "family_name": "Giram",
+      "nickname": "aniketgiram2404",
+      "name": "Aniket Giram",
+      "picture": "https://lh3.googleusercontent.com/a/AATXAJxcei0ejmGd48X_sW5Yh-PY35_kEsktJhyFeRce=s96-c",
+      "locale": "en",
+      "updated_at": "2021-05-06T16:27:47.077Z",
+      "email": "aniketgiram2404@gmail.com",
+      "email_verified": true
+    }
+  ],
+  "items": []
+}
