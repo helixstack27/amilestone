@@ -6,7 +6,7 @@ import React, {
   createContext,
 } from "react";
 import auth0 from "./auth0";
-import { useUser, createUser, updateUser } from "./db";
+import { useUser, createUser, updateUser, getUser } from "./db";
 import { CustomError } from "./util";
 import router from "next/router";
 import PageLoader from "./../components/PageLoader";
@@ -48,10 +48,12 @@ function useAuthProvider() {
   const handleAuth = async (user) => {
     // Create the user in the database
     // Auth0 doesn't indicate if they are new so we attempt to create user every time
-    // await createUser(user.sub, { email: user.email });
-
-    //sending all user data
-    await createUser(user.sub, user);
+    let obj=await getUser(user.sub)
+    if(obj && Object.keys(obj).length === 0 && obj.constructor === Object){
+      // await createUser(user.sub, { email: user.email });
+      //sending all user data
+      await createUser(user.sub, user);
+    }
     // Update user in state
     setUser(user);
     return user;
@@ -113,14 +115,18 @@ function useAuthProvider() {
   const linkAccount = () => {
     return auth0.extended.linkAccount();
   };
-//unlink account
- const unlinkAccount=(providerSecondary,idSecondary)=>{
-  return auth0.extended.unlinkAccount(providerSecondary,idSecondary);
- }
- //enlist accounts
- const linkedAccountList=()=>{
-   return auth0.extended.linkedAccountList()
- }
+  //unlink account
+  const unlinkAccount = (providerSecondary, idSecondary) => {
+    return auth0.extended.unlinkAccount(providerSecondary, idSecondary);
+  }
+  //enlist accounts
+  const linkedAccountList = () => {
+    return auth0.extended.linkedAccountList()
+  }
+  //create a new organization
+  const createOrganization=(body)=>{
+    return auth0.extended.createOrganization(body)
+  }
   const confirmPasswordReset = (password, code) => {
     // This method is not needed with Auth0 but added in case your exported
     // Divjoy template makes a call to auth.confirmPasswordReset(). You can remove it.
@@ -141,7 +147,7 @@ function useAuthProvider() {
   const updatePassword = (password) => {
     return auth0.extended.updatePassword(password);
   };
-  
+
   // Update auth user and persist to database (including any custom values in data)
   // Forms can call this function instead of multiple auth/db update functions
   const updateProfile = async (data) => {
@@ -214,7 +220,8 @@ function useAuthProvider() {
     updateProfile,
     linkAccount,
     unlinkAccount,
-    linkedAccountList
+    linkedAccountList,
+    createOrganization
   };
 }
 

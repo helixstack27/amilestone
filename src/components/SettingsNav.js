@@ -25,6 +25,11 @@ function SettingsNav(props) {
           <Nav.Link eventKey="links">Social Linking</Nav.Link>
         </Link>
       </Nav.Item>
+      <Nav.Item>
+        <Link href="/settings/organization" passHref={true}>
+          <Nav.Link eventKey="organization">Organizations</Nav.Link>
+        </Link>
+      </Nav.Item>
     </Nav>
   );
 }

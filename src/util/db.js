@@ -26,6 +26,9 @@ export function useUser(uid) {
 export function createUser(uid, data) {
   return apiRequest("user-create", "POST", { uid, ...data });
 }
+export function getUser(uid){
+  return apiRequest(`user-get?uid=${uid}`);
+}
 
 // Update an existing user
 export async function updateUser(uid, data) {

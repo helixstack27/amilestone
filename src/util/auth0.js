@@ -108,7 +108,7 @@ auth0.extended = {
     });
     return true;
   },
-//linking user identifier
+  //linking user identifier
   linkAccount: async () => {
     const accessToken = getAccessToken();
     const userDetails = await userInfo(accessToken);
@@ -132,23 +132,23 @@ auth0.extended = {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        body:JSON.stringify({
+        body: JSON.stringify({
           link_with: targetUserIdToken,
-        }) ,
+        }),
       }
-    ).then(async result=>{
-      let newval=await result.json()
+    ).then(async result => {
+      let newval = await result.json()
       return newval;
     })
-    
+
   },
   //unlinking user identifier
-  unlinkAccount:async (providerSecondary,idSecondary)=>{
+  unlinkAccount: async (providerSecondary, idSecondary) => {
     const accessToken = getAccessToken();
     const userDetails = await userInfo(accessToken);
     const { sub } = userDetails;
     console.log(userDetails)
-    const result=await fetch(`https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/users/${sub}/identities/${providerSecondary}/${idSecondary}`, {
+    const result = await fetch(`https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/users/${sub}/identities/${providerSecondary}/${idSecondary}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -158,7 +158,7 @@ auth0.extended = {
     return result
   },
   //enlisting identifiers
-  linkedAccountList:async()=>{
+  linkedAccountList: async () => {
     const accessToken = getAccessToken();
     const userDetails = await userInfo(accessToken);
     const { email } = userDetails;
@@ -171,6 +171,22 @@ auth0.extended = {
     let finalIds = await result.json()
     return await finalIds
   },
+  //create Organization
+  createOrganization: async (body) => {
+    let result = await fetch(`https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/organizations`, {
+      body: JSON.stringify(body),
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AUTH0_MANGEMENT_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+    let finalIds = await result.json()
+    console.log("test org 1", finalIds)
+    return await finalIds
+  },
+
+
   // A method for listening to to auth changes and receiving user data in passed callback
   onChange: function (cb) {
     // Store passed callback function

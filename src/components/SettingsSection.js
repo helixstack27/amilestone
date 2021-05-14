@@ -9,6 +9,7 @@ import SettingsPassword from "components/SettingsPassword";
 import SettingsBilling from "components/SettingsBilling";
 import { useAuth } from "util/auth.js";
 import SettingsLinks from "./SettingsLinks";
+import SettingsOrganization from "./settingsOrganization";
 
 function SettingsSection(props) {
   const auth = useAuth();
@@ -24,7 +25,8 @@ function SettingsSection(props) {
     general: true,
     password: true,
     billing: true,
-    links: true
+    links: true,
+    organization: true
   };
 
   const section = validSections[props.section] ? props.section : "general";
@@ -90,6 +92,8 @@ function SettingsSection(props) {
         {section === "billing" && <SettingsBilling onStatus={handleStatus} />}
 
         {section === "links" && <SettingsLinks onStatus={handleStatus} />}
+
+        {section === "organization" && <SettingsOrganization onStatus={handleStatus} />}
 
       </Container>
     </Section>

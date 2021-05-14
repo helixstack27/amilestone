@@ -27,6 +27,7 @@ export const getStaticPaths = () => ({
     { params: { section: "password" } },
     { params: { section: "billing" } },
     { params: { section: "links" } },
+    { params: { section: "organization" } },
   ],
   fallback: true,
 });
